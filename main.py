@@ -13,8 +13,6 @@ from files import save_file, get_file_context, remove_file, list_files
 
 load_dotenv()
 
-# IMPORTANT: Your ZAPIER_TOKEN is the FULL URL from Zapier MCP
-# Example: "NTNhMmU2ODUtNDliZS00OTYxLTgzZDctZWVhOGUxMDIyMGIz:xxxxx"
 ZAPIER_TOKEN = os.getenv("ZAPIER_TOKEN")
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 
@@ -30,7 +28,7 @@ def safe_eval(node):
         return OPS[type(node.op)](safe_eval(node.left), safe_eval(node.right))
     raise ValueError("Invalid")
 
-# ── Tool detection with priority ─────────────────────────────────────────────
+
 TOOLS = [
     {"name": "github_create_repo", "keywords": ["create repo", "create a repo", "new repo", "create repository", "make a repo", "create reposteries"]},
     {"name": "github_list_repos", "keywords": ["list all repos", "all repositories", "list repos", "my repos", "my repositories", "show all repos", "see all my repos", "list my github repos", "show my repos"]},
@@ -274,7 +272,6 @@ async def run_tool_async(name: str, user_msg: str) -> str:
                 return result
         return "Please specify 'employees' or 'projects'"
 
-    # ── CALCULATIONS ───────────────────────────────────────────────────────────
     if name == "calculate":
         exprs = re.findall(r'[\d\+\-\*\/\.\(\)\s]+', user_msg)
         for e in exprs:

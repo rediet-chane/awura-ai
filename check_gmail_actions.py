@@ -1,4 +1,3 @@
-# check_gmail_actions.py
 import httpx
 import asyncio
 import json
@@ -24,7 +23,7 @@ async def check_gmail_actions():
         "params": {
             "name": "list_enabled_zapier_actions",
             "arguments": {
-                "selected_api": "GoogleMailV2CLIAPI"  # This gets only Gmail actions
+                "selected_api": "GoogleMailV2CLIAPI"   
             }
         }
     }
