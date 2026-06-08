@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Awura AI</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<aside id="sidebar">
+  <div class="logo">
+    <div class="logo-icon">✦</div>
+    <span class="logo-text">Awura AI</span>
+  </div>
+  <button class="new-chat-btn" onclick="newChat()">✦ &nbsp;New Chat</button>
+  <div>
+    <div class="sidebar-label">Recent Chats</div>
+    <div id="history-list"></div>
+  </div>
+  <div class="sidebar-bottom">
+    <div class="theme-row">
+      <span>Light mode</span>
+      <div class="toggle" id="theme-toggle" onclick="toggleTheme()"><div class="toggle-knob"></div></div>
+    </div>
+    <div class="auth-box">
+      <div class="user-info">
+        <div class="user-avatar">R</div>
+        <div>
+          <div class="user-name">Redie</div>
+          <div class="user-plan">Awura AI · Local</div>
+        </div>
+      </div>
+      <button class="signup-btn" onclick="showSignup()">✦ Upgrade / Sign Up</button>
+    </div>
+  </div>
+</aside>
+
+<main id="main">
+  <div id="header">
+    <button class="toggle-sidebar-btn" onclick="toggleSidebar()">☰</button>
+    <span class="header-title" id="chat-title">New Chat</span>
+    <div class="header-model-selector">
+      <button class="header-model-btn" onclick="toggleModelDropdown(event)">
+        <span id="model-label">qwen2.5:1.5b</span>
+        <span style="font-size:10px;color:var(--text2)">▾</span>
+      </button>
+      <div class="model-dropdown" id="model-dropdown"></div>
+    </div>
+  </div>
+
+  <div id="messages">
+    <div class="welcome" id="welcome">
+      <div class="welcome-icon">✦</div>
+      <h2>Awura AI Assistant</h2>
+      <p>Runs fully on your device. Private, fast, no internet required.</p>
+      <div class="chips">
+        <div class="chip" onclick="sendChip('What time and date is it right now?')">🕐 Current time</div>
+        <div class="chip" onclick="sendChip('Show me all employees in the database')">👥 Employees</div>
+        <div class="chip" onclick="sendChip('What are the current projects?')">📋 Projects</div>
+        <div class="chip" onclick="sendChip('Calculate 1234 * 56')">🧮 Calculate</div>
+        <div class="chip" onclick="sendChip('list all repos')">📁 My Repos</div>
+        <div class="chip" onclick="sendChip('send email to test@gmail.com saying Hello')">📧 Send Email</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="input-area">
+    <div class="input-container">
+      <div class="input-wrap">
+        <div id="attached-bar"></div>
+        <div class="input-row">
+          <div class="plus-btn" onclick="document.getElementById('file-input').click()" title="Attach file">+</div>
+          <textarea id="user-input" placeholder="Message Awura AI..." rows="1"
+            onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+          <div class="input-btns">
+            <button id="mic-btn" class="icon-btn" onclick="toggleVoice()" title="Voice input">🎤</button>
+            <button id="stop-btn" class="icon-btn" onclick="stopGeneration()" title="Stop">■</button>
+            <button id="send-btn" class="icon-btn" onclick="sendMessage()" title="Send">➤</button>
+          </div>
+        </div>
+      </div>
+      <div class="input-hint">Enter to send · Shift+Enter for new line · 🎤 voice: speak then pause 1.5s to send</div>
+    </div>
+  </div>
+</main>
+
+<div class="modal-overlay hidden" id="signup-modal">
+  <div class="modal">
+    <h3>✦ Join Awura AI</h3>
+    <p>Sign up to save your chat history and access more features.</p>
+    <input type="text" placeholder="Full name" id="signup-name">
+    <input type="email" placeholder="Email address" id="signup-email">
+    <input type="password" placeholder="Password" id="signup-pass">
+    <button class="modal-btn primary" onclick="doSignup()">Create Account</button>
+    <button class="modal-btn secondary" onclick="closeSignup()">Cancel</button>
+  </div>
+</div>
+
+<input type="file" id="file-input" multiple accept=".pdf,.docx,.pptx,.txt,.md" onchange="attachFiles(this.files)">
+<script src="/static/app.js"></script>
+</body>
+</html>
