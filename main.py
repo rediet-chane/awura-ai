@@ -42,19 +42,17 @@ TOOLS = [
 def detect_tool(msg: str):
     m = msg.lower().strip()
     
-    # Email detection - SEND
     if re.search(r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}', msg):
         if any(k in m for k in ["send", "email", "mail"]):
             return "zapier_email_send"
     
-    # Check other tools in order
+     
     for t in TOOLS:
         if any(kw in m for kw in t["keywords"]):
             return t["name"]
     
     return None
 
-# ── GitHub API Helpers ─────────────────────────────────────────────────────
 async def github_api_request(method: str, endpoint: str, data: dict = None) -> Tuple[int, Any]:
     if not GITHUB_TOKEN:
         return 401, {"error": "GITHUB_TOKEN not set"}
